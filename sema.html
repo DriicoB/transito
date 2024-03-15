@@ -12,6 +12,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background-color: #f0f0f0; 
         }
 
         #imageContainer {
@@ -22,19 +23,21 @@
             border-radius: 10px;
             border: 2px solid transparent; 
             animation: borderChange 5s infinite;
+            max-width: 90%; 
+            max-height: 80%; 
+            overflow: hidden; 
         }
 
         img {
-            width: 400px; 
+            max-width: 100%; 
             height: auto; 
-            margin: 20px; 
             border-radius: 10px;
         }
 
         @keyframes borderChange {
             0% { border-color: transparent; }
             25% { border-color: #ff0000; }
-            50% { border-color: #ffff00; }
+            50% { border-color: #b9b90a; }
             75% { border-color: #00ff00; }
             100% { border-color: transparent; }
         }
