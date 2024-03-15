@@ -57,6 +57,8 @@
 
     <script>
         let estadoAnterior = null;
+        let imagemAtual = null; 
+
         function carregarImagem() {
             fetch('https://niloweb.com.br/transit-room/api/reg_endpoint.php')
                 .then(response => response.json())
@@ -89,8 +91,15 @@
                                 default:
                                     console.error('Condição desconhecida:', condition);
                             }
+
+                            
+                            if (imagemAtual) {
+                                document.getElementById('imageContainer').removeChild(imagemAtual);
+                            }
+
                             document.getElementById('imageContainer').appendChild(imagem);
-                            playSound()
+                            imagemAtual = imagem; 
+                            playSound();
                         } else {
                             console.error('Erro ao carregar imagem da API.');
                         }
