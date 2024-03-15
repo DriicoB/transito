@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semá</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            
+            
+            
+            
+            
+        }
+ 
+        #imageContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: solid 10;
+        }
+ 
+        img {
+            width: 400px; 
+            height: auto; 
+            margin: 20px; 
+            border-radius: solid 10;
+        }
+ 
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 24px;
+        
+            
+        }
+        
+        
+        
+    </style>
+</head>
+<body id="bg">
+ 
+    <div id="imageContainer">
+        
+    </div>
+ 
+    <script>
+        let estadoAnterior=null
+        function carregarImagem() {
+            fetch('https://niloweb.com.br/transit-room/api/reg_endpoint.php')
+                .then(response => response.json())
+                .then(data => {
+                    if(data[0].res !== estadoAnterior){
+                        estadoAnterior= data[0].res;
+                    
+                    if (data && data[0] && data[0].res) {
+                        const imagem = document.createElement('img');
+                        const condition = data[0].res;
+                        let bg = document.getElementById('bg');
+                        switch(condition) {
+                            case 'A':
+                                imagem.src = "images/S.jfif";
+                                bg.style.backgroundColor = "yellow";
+                                
+
+                                playSound();
+                                break;
+                                
+                            case 'B':
+                                imagem.src = "images/L.jfif";
+                               bg.style.backgroundColor = "red"; 
+                               playSound();
+                               break;
+                                
+                            case 'L':
+                                imagem.src = "images/Z.jfif";
+                               bg.style.backgroundColor = "green"; break;
+                               playSound();
+                            default:
+                                console.error('Condição desconhecida:', condition);
+                        }
+                        document.getElementById('imageContainer').appendChild(imagem);
+                        playSound()
+                    } else {
+                        console.error('Erro ao carregar imagem da API.');
+                    }
+                }
+                })
+                .catch(error => {
+                    console.error('Erro ao conectar à API:', error);
+                });
+        }
+
+
+        function playSound() {
+            const audio = new Audio('audio/audioo.mp3');
+            audio.onended = function() {
+            };
+            audio.play();
+        }
+        carregarImagem()
+        setInterval(carregarImagem, 1000)
+    </script>
+</body>
+</html>
